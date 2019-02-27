@@ -20,7 +20,9 @@ namespace ScreenSaver
             OnStart();
             DoubleBuffered = true;
 
-        }
+        }/// <summary>
+        /// 
+        /// </summary>
         public void OnStart()
         {
             balls.Add(new Ball(Width,Height,Color.Blue));
