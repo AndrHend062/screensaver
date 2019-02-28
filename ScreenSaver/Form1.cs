@@ -13,6 +13,7 @@ namespace ScreenSaver
     public partial class Form1 : Form
     {
         List<Ball> balls = new List<Ball>();
+       
         public static Random rand = new Random();
         public Form1()
         {
@@ -28,26 +29,67 @@ namespace ScreenSaver
         }
         private void Form1_Click(object sender, EventArgs e)
         {
-            balls.Add(new Ball(Width, Height, Color.Red));
+
+            switch (rand.Next(3))
+            {
+                case 0:
+                    balls.Add(new Ball(Width, Height, Color.Red));
+                    break;
+                case 1:
+                    balls.Add(new Ball(Width, Height, Color.IndianRed));
+                    break;
+                case 2:
+                    balls.Add(new Ball(Width, Height, Color.PaleGoldenrod));
+                    break;
+            }
+
+
+            
         }
 
         private void gameTime_Tick(object sender, EventArgs e)
         {
             foreach(Ball b in balls)
             {
+               foreach (Ball m in balls)
+                {
+                    if (b.Collision(m))
+{
+                        b.right = !b.right;
+                        b.down = !b.down;
+                        m.down = !m.down;
+                        m.right = !m.right;
+                        /*
+                        if (rand.Next(2)==0)
+                        {
+                            m.down = !m.down;
+                            m.right = !m.right;
+                        }
+                        else
+                        {
+                            m.down = !m.down;
+                        }
+                        */
+                       
+                    }
+                }
 
-                b.Move();
-               // b.Collision(balls);
-                if (b.x <= 0||b.x+b.size >=Width)
+
+                if (b.x <= 0||b.x+b.size >=Width-5)
                 {
                     b.right = !b.right;
                 }
-                if (b.y <= 0 || b.y+b.size >= Height)
+                if (b.y <= 0 || b.y+b.size >= Height-30)
                 {
                     b.down = !b.down;
                 }
-            }
 
+                b.Move();
+               
+               
+            }
+          
+           
 
             Refresh();
         }
